@@ -1,0 +1,16 @@
+#message {
+  border: 2px solid #E1E8ED;
+  border-radius: 4px;
+  background-color: #F5F8FA;
+  margin-top: 5px;
+}
+
+.username-label {
+  color: #14171A;
+  margin-left: 10px;
+}
+
+.message-text {
+  color: #657786;
+  margin-left: 10px;
+}

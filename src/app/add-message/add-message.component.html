@@ -1,0 +1,13 @@
+<div>
+  <h3>New message:</h3>
+  <label>
+    <textarea id="message-box" #message></textarea>
+  </label>
+  <label>Name:
+    <input id="username-box" #username />
+  </label>
+  <button (click)="add(message.value, username.value); message.value=''; username.value = ''">
+      
+    send
+  </button>
+</div>

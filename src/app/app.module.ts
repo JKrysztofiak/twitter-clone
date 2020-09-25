@@ -3,10 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AddMessageComponent } from './add-message/add-message.component';
+import { FeedComponent } from './feed/feed.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddMessageComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,
