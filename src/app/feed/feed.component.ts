@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from '../messages.service';
 import { Message } from '../message-template';
+import { MessageDTO } from '../messageDTO';
 
 @Component({
 	selector: 'app-feed',
@@ -10,13 +11,13 @@ import { Message } from '../message-template';
 export class FeedComponent implements OnInit {
 	constructor(private messagesService: MessagesService) {}
 
-	messages: Message[];
+	messages: MessageDTO[];
 
 	ngOnInit(): void {
-		this.messages = this.getMessages();
+		this.getMessages();
 	}
 
-	getMessages(): Message[] {
-		return this.messagesService.getMessages();
+	getMessages(): void {
+		this.messagesService.getMessages().subscribe((msgArr) => (this.messages = msgArr));
 	}
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from '../messages.service';
 import { Message } from '../message-template';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-add-message',
@@ -8,15 +9,17 @@ import { Message } from '../message-template';
 	styleUrls: [ './add-message.component.css' ]
 })
 export class AddMessageComponent implements OnInit {
-	constructor(private messagesService: MessagesService) {}
+	constructor(private messagesService: MessagesService, private router: Router) {}
 
 	ngOnInit(): void {}
 
+	//FEED wysyła treść wiadomości i autora do serwisu
 	add(text: string, user: string): void {
 		console.log(`${user} said ${text}`);
-		this.messagesService.addMessage({
-			user: user,
-			message: text
-		} as Message);
+		const msg: Message = {
+			username: user,
+			messageText: text
+		};
+		this.messagesService.addMessage(msg).subscribe();
 	}
 }
