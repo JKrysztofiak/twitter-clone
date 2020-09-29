@@ -1,4 +1,4 @@
-<div id="message" *ngFor='let message of messages'>
+<div id="message" *ngFor='let message of messages|async'>
 
     <div class="box">
       <h3 class="username-label">{{message.username}}</h3>

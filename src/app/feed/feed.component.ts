@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { MessagesService } from '../messages.service';
-import { Message } from '../message-template';
-import { MessageDTO } from '../messageDTO';
+import {Component, OnInit} from '@angular/core';
+import {MessagesService} from '../messages.service';
+import {MessageDTO} from '../messageDTO';
+import {Observable} from 'rxjs';
 
 @Component({
-	selector: 'app-feed',
-	templateUrl: './feed.component.html',
-	styleUrls: [ './feed.component.css' ]
+  selector: 'app-feed',
+  templateUrl: './feed.component.html',
+  styleUrls: ['./feed.component.css']
 })
 export class FeedComponent implements OnInit {
-	constructor(private messagesService: MessagesService) {}
+  constructor(private messagesService: MessagesService) {
+  }
 
-	messages: MessageDTO[];
+  messages: Observable<MessageDTO[]>;
 
-	ngOnInit(): void {
-		this.getMessages();
-	}
+  ngOnInit(): void {
+    this.messages = this.getMessages();
+  }
 
-	getMessages(): void {
-		this.messagesService.getMessages().subscribe((msgArr) => (this.messages = msgArr));
-	}
+  getMessages(): Observable<MessageDTO[]> {
+    return this.messagesService.getMessages();
+  }
 }

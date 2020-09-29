@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "twitter-clone"
+    }
+  },
+  "defaultProject": "twitter-clone",
+  "cli": {
+    "analytics": "7ac9b739-4c06-4e3d-8495-589ff50437eb"
+  }
 }
