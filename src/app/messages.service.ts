@@ -3,33 +3,53 @@ import { Message } from './message-template';
 import { MessageDTO } from './messageDTO';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, Observer } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class MessagesService {
-	messages: MessageDTO[] = [];
+	messages: MessageDTO[];
+	messagesSubject = new BehaviorSubject<MessageDTO[]>([]);
 
 	baseUrl = 'https://localhost:44378/api/messages';
 	httpOptions = {
 		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 	};
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) {
+		this.getMessages().subscribe((arr) => {
+			this.messages = arr;
+			this.update();
+		});
+	}
 
-	//Serwis odbiera wiadomość od "feed"
-	//TODO: Update feed after adding a message
+	subscribe(observer: Observer<MessageDTO[]>) {
+		this.messagesSubject.subscribe(observer);
+	}
+
+	// Serwis odbiera wiadomość od "feed"
+	// TODO: Update feed after adding a message
 	addMessage(message: Message): Observable<Message> {
-		if (!message.messageText) return;
-		if (!message.username) {
-			message.username = 'Anonymous'; //jeżeli username nie został podany
+		if (!message.messageText) {
+			return;
 		}
-		return this.http.put<Message>(this.baseUrl, message, this.httpOptions);
+		if (!message.username) {
+			message.username = 'Anonymous'; // jeżeli username nie został podany
+		}
+
+		this.http.put<MessageDTO>(this.baseUrl, message, this.httpOptions).subscribe((msg) => {
+			this.messages.unshift(msg);
+			this.update();
+		});
 	}
 
 	getMessages(): Observable<MessageDTO[]> {
 		return this.http.get<MessageDTO[]>(this.baseUrl);
+	}
+
+	update() {
+		this.messagesSubject.next(this.messages);
 	}
 }
