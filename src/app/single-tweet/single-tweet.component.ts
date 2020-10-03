@@ -20,8 +20,15 @@ export class SingleTweetComponent implements OnInit {
 			this.messageService.getMessage(params.get('id')).subscribe((msg) => {
 				console.log(msg);
 				this.message = msg;
-				// this.message = msg;
 			});
 		});
+	}
+
+	removeMsg() {
+		console.log(this.message);
+
+		console.log(`Removing msg with id: ${this.message['messageid']}`);
+
+		this.messageService.deleteMessage(this.message['messageid']);
 	}
 }

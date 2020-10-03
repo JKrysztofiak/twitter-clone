@@ -54,6 +54,14 @@ export class MessagesService {
 		return this.http.get<MessageDTO>(`${this.baseUrl}/${idNum}`);
 	}
 
+	deleteMessage(id: any): void {
+		const idNum = this.messages.length - id;
+		this.http.delete<MessageDTO>(`${this.baseUrl}/${id}`).subscribe((x) => {
+			this.messages.splice(idNum, 1);
+			this.update();
+		});
+	}
+
 	update() {
 		this.messagesSubject.next(this.messages);
 	}
