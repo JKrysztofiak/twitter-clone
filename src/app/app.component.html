@@ -1,4 +1,9 @@
-<h1>{{title}}</h1>
 
-<app-add-message></app-add-message>
-<app-feed></app-feed>
+<a [title]="'Home'" [routerLink]="['/']">
+    <h1>{{title}}</h1>
+</a>
+
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

@@ -49,6 +49,11 @@ export class MessagesService {
 		return this.http.get<MessageDTO[]>(this.baseUrl);
 	}
 
+	getMessage(id: any): Observable<MessageDTO> {
+		const idNum = this.messages.length - id;
+		return this.http.get<MessageDTO>(`${this.baseUrl}/${idNum}`);
+	}
+
 	update() {
 		this.messagesSubject.next(this.messages);
 	}
