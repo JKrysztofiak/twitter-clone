@@ -29,8 +29,6 @@ export class MessagesService {
 		this.messagesSubject.subscribe(observer);
 	}
 
-	// Serwis odbiera wiadomość od "feed"
-	// TODO: Update feed after adding a message
 	addMessage(message: Message): Observable<Message> {
 		if (!message.messageText) {
 			return;
@@ -54,19 +52,39 @@ export class MessagesService {
 	}
 
 	deleteMessage(id: any): void {
-		let idNum = -1;
-		let i = 0;
-		for (let msg of this.messages) {
-			if (msg['messageid'] == id) {
-				idNum = i;
-			}
-			i++;
-		}
+		let idNum = this.findId(id);
 		if (idNum == -1) return;
 		this.http.delete<MessageDTO>(`${this.baseUrl}/${id}`).subscribe((x) => {
 			this.messages.splice(idNum, 1);
 			this.update();
 		});
+	}
+
+	updateMessage(id, text) {
+		console.log(`Service: Updating msg id. ${id} with text: ${text}`);
+		this.http
+			.post<MessageDTO>(`${this.baseUrl}/${id}`, {
+				messageText: text
+			})
+			.subscribe((x) => {
+				this.messages[this.findId(id)].messagetext = text;
+				this.update();
+			});
+	}
+
+	findId(listId: number): number {
+		let id = 0;
+		console.log('searching for id: ' + listId);
+
+		for (let msg of this.messages) {
+			console.log(msg['messageid']);
+			if (msg['messageid'] == listId) {
+				console.log(`ID FOUND IN LIST: ${id}`);
+				return id;
+			}
+			id++;
+		}
+		return -1;
 	}
 
 	update() {

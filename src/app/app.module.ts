@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddMessageComponent } from './add-message/add-message.component';
 import { FeedComponent } from './feed/feed.component';
+import { FormsModule } from '@angular/forms';
 
 import { HttpClientModule } from '@angular/common/http';
 import { HomePageComponent } from './home-page/home-page.component';
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
+		FormsModule,
 		HttpClientModule,
 		RouterModule.forRoot([
 			{ path: '', component: HomePageComponent },
