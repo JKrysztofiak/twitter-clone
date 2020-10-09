@@ -8,3 +8,16 @@ body {
 a {
   text-decoration: none;
 }
+
+button {
+  transition-duration: 0.4s;
+  background-color: white;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-left: 8px;
+}
+
+button:hover {
+  background-color: #1DA1F2;
+  color: white;
+}
