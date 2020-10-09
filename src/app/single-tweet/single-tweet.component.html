@@ -3,17 +3,16 @@
     <h3 class="username-label">{{message.username}}</h3>
     <div *ngIf="!edit">
       <h5 class="message-text">{{message.messagetext}}</h5>
-      <button (click)="removeMsg()" [routerLink]="['/']">DELETE</button>
+      <button class="button" (click)="removeMsg()" [routerLink]="['/']">DELETE</button>
       <button (click)="toggleMsgEdit()">EDIT</button>
     </div>
     <div *ngIf="edit">
-   		<label>Text:
-      <input [(ngModel)]="msgText" placeholder="text" />
-      <!-- <textarea id="message-box" [(ngModel)]="msgText" #messageText></textarea> -->
+      <label>
+        <textarea [(ngModel)]="msgText" id="message-box"></textarea>
       </label>
       <button (click)="saveMsgEdit()">SAVE</button>
       <button (click)="toggleMsgEdit()">BACK</button>
-  	</div>
+    </div>
     
     
   </div>
