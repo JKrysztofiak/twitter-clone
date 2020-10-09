@@ -2,7 +2,7 @@
 
     <div class="box">
       <h3 class="username-label">{{message.username}}</h3>
-      <a [title]="'details'" [routerLink]="['/message',id]">
+      <a [title]="'details'" [routerLink]="['/message',message['messageid']]">
         <h5 class="message-text">{{message.messagetext}}</h5>
       </a>
       

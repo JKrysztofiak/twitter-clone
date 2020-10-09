@@ -50,12 +50,19 @@ export class MessagesService {
 	}
 
 	getMessage(id: any): Observable<MessageDTO> {
-		const idNum = this.messages.length - id;
-		return this.http.get<MessageDTO>(`${this.baseUrl}/${idNum}`);
+		return this.http.get<MessageDTO>(`${this.baseUrl}/${id}`);
 	}
 
 	deleteMessage(id: any): void {
-		const idNum = this.messages.length - id;
+		let idNum = -1;
+		let i = 0;
+		for (let msg of this.messages) {
+			if (msg['messageid'] == id) {
+				idNum = i;
+			}
+			i++;
+		}
+		if (idNum == -1) return;
 		this.http.delete<MessageDTO>(`${this.baseUrl}/${id}`).subscribe((x) => {
 			this.messages.splice(idNum, 1);
 			this.update();
